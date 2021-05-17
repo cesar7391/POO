@@ -1,0 +1,14 @@
+C:\Users\César\source\repos\Caja_Ahorro\Caja_Ahorro\obj\Debug\Caja_Ahorro.csprojAssemblyReference.cache
+C:\Users\César\source\repos\Caja_Ahorro\Caja_Ahorro\obj\Debug\Caja_Ahorro.csproj.CoreCompileInputs.cache
+C:\Users\César\source\repos\Caja_Ahorro\Caja_Ahorro\bin\Debug\Caja_Ahorro.exe.config
+C:\Users\César\source\repos\Caja_Ahorro\Caja_Ahorro\bin\Debug\Caja_Ahorro.exe
+C:\Users\César\source\repos\Caja_Ahorro\Caja_Ahorro\bin\Debug\Caja_Ahorro.pdb
+C:\Users\César\source\repos\Caja_Ahorro\Caja_Ahorro\obj\Debug\Caja_Ahorro.exe
+C:\Users\César\source\repos\Caja_Ahorro\Caja_Ahorro\obj\Debug\Caja_Ahorro.pdb
+D:\Git\ExamenPOO\Caja_Ahorro\Caja_Ahorro\bin\Debug\Caja_Ahorro.exe.config
+D:\Git\ExamenPOO\Caja_Ahorro\Caja_Ahorro\bin\Debug\Caja_Ahorro.exe
+D:\Git\ExamenPOO\Caja_Ahorro\Caja_Ahorro\bin\Debug\Caja_Ahorro.pdb
+D:\Git\ExamenPOO\Caja_Ahorro\Caja_Ahorro\obj\Debug\Caja_Ahorro.csprojAssemblyReference.cache
+D:\Git\ExamenPOO\Caja_Ahorro\Caja_Ahorro\obj\Debug\Caja_Ahorro.csproj.CoreCompileInputs.cache
+D:\Git\ExamenPOO\Caja_Ahorro\Caja_Ahorro\obj\Debug\Caja_Ahorro.exe
+D:\Git\ExamenPOO\Caja_Ahorro\Caja_Ahorro\obj\Debug\Caja_Ahorro.pdb
