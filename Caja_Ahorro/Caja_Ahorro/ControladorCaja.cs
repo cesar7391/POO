@@ -20,6 +20,15 @@ namespace Caja_Ahorro
             return cuenta;
         }
 
+        public bool existe(int id)
+        {
+            Cuenta cuenta = caja.CuentasAlta.FirstOrDefault(x => x.Id == id);
+            if (cuenta != null)
+                return true;
+            else
+                return false;
+        }
+
         public CajaAhorro getCaja()
         {
             return caja;

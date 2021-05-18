@@ -135,18 +135,15 @@ namespace Caja_Ahorro
                 {
                     case 1:
                         controladorCaja.MostrarCajaOrden();
-
                         MostrarMenuAdmin();
                         break;
                     case 2:
                         controladorCaja.Informacion();
-
                         MostrarMenuAdmin();
                         break;
                     case 3:
                         idCuenta = PedirID();
                         controladorCaja.InformacionUsuario(idCuenta);
-
                         MostrarMenuAdmin();
                         break;
                     case 4:
@@ -188,9 +185,26 @@ namespace Caja_Ahorro
 
         static int PedirID()
         {
+            String idS;
+            int resultado;
             Console.Write("ID del usuario: ");
-            int id = Convert.ToInt32(Console.ReadLine());
-            return id;
+            idS = Console.ReadLine();
+
+            if(Int32.TryParse(idS, out resultado))
+            {
+                resultado = Convert.ToInt32(idS);
+                if (!controladorCaja.existe(resultado))
+                {
+                    Console.WriteLine("El valor no existe");
+                    MostrarMenuGeneral();
+                }
+            }
+            else
+            {
+                Console.WriteLine("El valor no es un ID válido");
+                MostrarMenuGeneral();
+            }
+            return resultado;
         }
     }
 }
