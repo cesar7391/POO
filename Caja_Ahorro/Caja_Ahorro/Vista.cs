@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Caja_Ahorro
 {
-    class Program
+    class Vista
     {
         static String nombre;
         static ControladorCaja controladorCaja = new ControladorCaja();
