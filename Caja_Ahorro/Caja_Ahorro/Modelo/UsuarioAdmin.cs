@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 
 namespace Caja_Ahorro
 {
-    class Program
+    class UsuarioAdmin : UsuarioSistema
     {
-        static CajaAhorroL logica = new CajaAhorroL();
-        static void Main(string[] args)
-        {
-            logica.MostrarMenuGeneral();
-        }       
+        public UsuarioAdmin(string nombre, CajaAhorro caja) : base(nombre, caja) { }
+
     }
 }

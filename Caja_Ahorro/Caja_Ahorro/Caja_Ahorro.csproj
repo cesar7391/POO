@@ -43,9 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modelo\CajaAhorro.cs" />
     <Compile Include="UsuarioAdmin.cs" />
-    <Compile Include="CajaAhorro.cs" />
-    <Compile Include="Cuenta.cs" />
+    <Compile Include="CajaAhorroL.cs" />
+    <Compile Include="Modelo\Cuenta.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Usuario.cs" />
