@@ -20,6 +20,4 @@ namespace Caja_Ahorro
             this.dinero = dinero;
         }
     }
-
-    
 }

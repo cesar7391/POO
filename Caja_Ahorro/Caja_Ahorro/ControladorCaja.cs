@@ -11,13 +11,10 @@ namespace Caja_Ahorro
     class ControladorCaja
     {
         static List<String> valoresIniciales = LeerArchivo();
-        CajaAhorro caja = new CajaAhorro(Convert.ToDouble(valoresIniciales[0]), valoresIniciales[1], 0, 0);        
-        private int idU = 1;
-        public bool flag = false;   
-        public String nombre;
+        CajaAhorro caja = new CajaAhorro(Convert.ToDouble(valoresIniciales[0]), valoresIniciales[1], 0, 0); 
+        static ControladorCuenta controladorUsuario = new ControladorCuenta();
 
-
-        public Cuenta ObtenerUsuario(int id)
+        public Cuenta getUser(int id)
         {
             Cuenta cuenta = caja.CuentasAlta.FirstOrDefault(x => x.Id == id);
             return cuenta;
@@ -38,7 +35,7 @@ namespace Caja_Ahorro
             Cuenta cuenta = caja.CuentasAlta.FirstOrDefault(x => x.Id == id);
             if(cuenta != null)
             {
-                if(ObtenerUsuario(id).Deuda > 0)
+                if(getUser(id).Deuda > 0)
                 {
                     Console.WriteLine("EL USUARIO TIENE DEUDAS, NO SE PUEDE DAR DE BAJA");
                 }
@@ -55,29 +52,46 @@ namespace Caja_Ahorro
             }            
         }
 
-        public void Depositar(int id, double cantidad)
+        public void Aportar(int id, double cantidad, String fecha)
         {
-            ObtenerUsuario(id).Dinero += cantidad;
-            Console.WriteLine("¡SE DEPOSITARON ${0}!\n", cantidad);
-
-            ATexto(id,ObtenerUsuario(id).Nombre, cantidad, "DEPÓSITO", true);
-        }
-
-        public void Retirar(int id, double cantidad)
-        {
-            if(cantidad <= ObtenerUsuario(id).Dinero)
+            //Se obtiene la fecha en formato dd/MM/yyyy
+            DateTime fechaU = Convert.ToDateTime(fecha);
+            Console.WriteLine(fechaU.ToString());
+            if (cantidad <= getUser(id).Dinero)
             {
-                ObtenerUsuario(id).Dinero -= cantidad;
-                Console.WriteLine("¡SE RETIRARON ${0}!\n", cantidad);
+                getUser(id).Dinero -= cantidad;
+                Console.WriteLine("¡SE APORTARON ${0}!\n", cantidad);
 
-                ATexto(id,ObtenerUsuario(id).Nombre, cantidad, "RETIRO", true);
+                ATexto(id, getUser(id).Nombre, cantidad, "APORTACIÓN", true);
 
             }
             else
             {
                 Console.WriteLine("¡LA CUENTA NO TIENE SUFICIENTE SALDO!\n");
 
-                ATexto(id,ObtenerUsuario(id).Nombre, cantidad, "RETIRO", false);
+                ATexto(id, getUser(id).Nombre, cantidad, "APORTACIÓN", false);
+            }
+
+        }
+
+        public void Depositar(int id, double cantidad)
+        {
+            controladorUsuario.Depositar(getUser(id), cantidad);
+
+            ATexto(id,getUser(id).Nombre, cantidad, "DEPÓSITO", true);
+        }
+
+        public void Retirar(int id, double cantidad)
+        {
+            if(cantidad <= getUser(id).Dinero)
+            {
+                controladorUsuario.Retirar(getUser(id), cantidad);
+                ATexto(id,getUser(id).Nombre, cantidad, "RETIRO", true);
+            }
+            else
+            {
+                Console.WriteLine("¡LA CUENTA NO TIENE SUFICIENTE SALDO!\n");
+                ATexto(id,getUser(id).Nombre, cantidad, "RETIRO", false);
             }
 
         }
@@ -86,21 +100,21 @@ namespace Caja_Ahorro
         {
             double deuda = 0;
             double reten = cantidad * 0.20;
-            ObtenerUsuario(id).Dinero -= reten;
-            ObtenerUsuario(id).DineroRetenido += reten;
+            getUser(id).Dinero -= reten;
+            getUser(id).DineroRetenido += reten;
             caja.DineroRetenido += reten;
 
             if(cantidad > caja.MontoInicial)
             {
                 Console.WriteLine("¡NO HAY SUFICIENTE DINERO EN CAJA!");
 
-                ATexto(id,ObtenerUsuario(id).Nombre, cantidad, "PRÉSTAMO", false);
+                ATexto(id,getUser(id).Nombre, cantidad, "PRÉSTAMO", false);
             }
-            else if(ObtenerUsuario(id).Dinero < reten)
+            else if(getUser(id).Dinero < reten)
             {
                 Console.WriteLine("¡NO TIENE 20% DE LA CANTIDAD SOLICITADA!");
 
-                ATexto(id,ObtenerUsuario(id).Nombre, cantidad, "PRÉSTAMO", false);
+                ATexto(id,getUser(id).Nombre, cantidad, "PRÉSTAMO", false);
 
             }
             else
@@ -110,49 +124,27 @@ namespace Caja_Ahorro
                 {
                     case 1:
                         deuda = cantidad + (cantidad * 0.08);
-                        ObtenerUsuario(id).Deuda += deuda;
+                        getUser(id).Deuda += deuda;
                         caja.DineroPrestado += deuda;                        
                         Console.WriteLine("Se prestaron ${0} a la cuenta con ID [{1}] con un interés de 8%", cantidad, id);
-                        ATexto(id,ObtenerUsuario(id).Nombre, cantidad, "PRÉSTAMO", true);
+                        ATexto(id,getUser(id).Nombre, cantidad, "PRÉSTAMO", true);
                         break;
                     case 2:
                         deuda = cantidad + (cantidad * 0.04);
-                        ObtenerUsuario(id).Deuda += deuda;
+                        getUser(id).Deuda += deuda;
                         caja.DineroPrestado += deuda;
                         Console.WriteLine("Se prestaron ${0} a la cuenta con ID [{1}] con un interés de 4%", cantidad, id);
-                        ATexto(id,ObtenerUsuario(id).Nombre, cantidad, "PRÉSTAMO", true);
+                        ATexto(id,getUser(id).Nombre, cantidad, "PRÉSTAMO", true);
                         break;
                     case 3:
                         deuda = cantidad + (cantidad * 0.02);
-                        ObtenerUsuario(id).Deuda += deuda;
+                        getUser(id).Deuda += deuda;
                         caja.DineroPrestado += deuda;
                         Console.WriteLine("Se prestaron ${0} a la cuenta con ID [{1}] con un interés de 2%", cantidad, id);
-                        ATexto(id,ObtenerUsuario(id).Nombre, cantidad, "PRÉSTAMO", true);
+                        ATexto(id,getUser(id).Nombre, cantidad, "PRÉSTAMO", true);
                         break;
                 }
             }
-        }
-
-        public void Aportar(int id, double cantidad, String fecha)
-        {
-            //Se obtiene la fecha en formato dd/MM/yyyy
-            DateTime fechaU = Convert.ToDateTime(fecha);
-            Console.WriteLine(fechaU.ToString());
-            if (cantidad <= ObtenerUsuario(id).Dinero)
-            {
-                ObtenerUsuario(id).Dinero -= cantidad;
-                Console.WriteLine("¡SE APORTARON ${0}!\n", cantidad);
-
-                ATexto(id,ObtenerUsuario(id).Nombre, cantidad, "APORTACIÓN", true);
-
-            }
-            else
-            {
-                Console.WriteLine("¡LA CUENTA NO TIENE SUFICIENTE SALDO!\n");
-
-                ATexto(id,ObtenerUsuario(id).Nombre, cantidad, "APORTACIÓN", false);
-            }
-
         }
 
         public void ATexto(int id, String nombre, double cantidad, String tipo, bool estado)
@@ -186,7 +178,7 @@ namespace Caja_Ahorro
             for (int i = 0; i < caja.Historial.Count; i++)
             {                
                 Console.WriteLine(caja.Historial[i]);
-                Console.WriteLine("===============================");
+                Console.WriteLine("===========================================");
             }
         }
 
@@ -207,12 +199,7 @@ namespace Caja_Ahorro
 
         public void InformacionUsuario(int id)
         {
-            Console.WriteLine("\n=============== INFORMACIÓN CUENTA ID [{0}] ===============",id);
-            Console.WriteLine("DINERO EN CUENTA:  $ " + ObtenerUsuario(id).Dinero);
-            Console.WriteLine("DINERO RETENIDO: $ " + ObtenerUsuario(id).DineroRetenido);
-            Console.WriteLine("DEUDAS: $ " + ObtenerUsuario(id).Deuda);
-            Console.WriteLine("=============================================================\n");
-            ;
+            controladorUsuario.Info(getUser(id));            
         }
 
         static List<String> LeerArchivo()

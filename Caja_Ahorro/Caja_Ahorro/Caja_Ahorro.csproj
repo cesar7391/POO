@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControladorCuenta.cs" />
     <Compile Include="Modelo\CajaAhorro.cs" />
     <Compile Include="Modelo\UsuarioAdmin.cs" />
     <Compile Include="ControladorCaja.cs" />

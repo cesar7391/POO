@@ -28,6 +28,15 @@ namespace Caja_Ahorro
             this.dineroRetenido = dineroRetenido;
             this.deuda = deuda;
         }
+
+        public Cuenta(int id, string nombre)
+        {
+            this.id = id;
+            this.nombre = nombre;
+            this.dinero = 0;
+            this.dineroRetenido = 0;
+            this.deuda = 0;
+        }
     }
 
 

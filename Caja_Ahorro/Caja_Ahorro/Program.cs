@@ -11,6 +11,7 @@ namespace Caja_Ahorro
     {
         static String nombre;
         static ControladorCaja controladorCaja = new ControladorCaja();
+        static ControladorCuenta controladorUsuario = new ControladorCuenta();
         static int idU =1;
         static int idCuenta;
         static double cantidad;
@@ -44,8 +45,7 @@ namespace Caja_Ahorro
                     case 1:
                         Console.Write("Nombre de usuario: ");
                         String nUser = Console.ReadLine();
-                        Cuenta user = new Cuenta(idU, nUser, 0, 0, 0);
-                        controladorCaja.DarAlta(user);
+                        controladorCaja.DarAlta(controladorUsuario.CrearUsuario(idU, nUser));
                         Console.WriteLine("¡Usuario agregado! SU ID ES: {0}", idU);
                         idU++;
                         MostrarMenuGeneral();
@@ -76,7 +76,7 @@ namespace Caja_Ahorro
                         break;
                     case 5:
                         idCuenta = PedirID();
-                        Console.Write("Cuenta ID [{0}], Cantidad a depositar: $", idCuenta);
+                        Console.Write("Cuenta ID [{0}], Cantidad a retirar: $", idCuenta);
                         cantidad = Convert.ToDouble(Console.ReadLine());
                         controladorCaja.Retirar(idCuenta, cantidad);
 
@@ -94,15 +94,13 @@ namespace Caja_Ahorro
                         break;
                     case 7:
                         controladorCaja.MostrarCaja();
-
                         MostrarMenuGeneral();
                         break;
                     case 8:                        
-                        if (PedirContraseña(controladorCaja.getCaja()))                        
-                            MostrarMenuAdmin();                        
-                        else
+                        if (PedirContraseña(controladorCaja.getCaja()))
                         {
-                            Console.Write("Contraseña incorrecta - ");
+                            Console.Clear();
+                            MostrarMenuAdmin();
                         }
                         break;
                     case 9:
@@ -121,8 +119,7 @@ namespace Caja_Ahorro
         static void MostrarMenuAdmin()
         {
             nombre = "ADMINISTRADOR";
-            int op = 1;
-            Console.Clear();
+            int op = 1;            
             do
             {
                 Console.WriteLine("\n============ Bienvenido, {0} - MENÚ ADMINISTRADOR ============", nombre);
